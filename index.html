@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>2025 K-pig Birthday Page</title>
+		<link rel="stylesheet" href="css/style.css" />
+    	<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&display=swap" rel="stylesheet">
+		<style>
+			body,
+			html {
+				padding: 0;
+				margin: 0;
+				font-family: 'Alegreya', serif; /* Changed font */
+				display: block;
+			}
+
+			.startwaves {
+				position: fixed;
+				display: flex;
+				justify-content: center;
+				height: 120vh;
+				width: 100%;
+				background-color: #469ce5;
+				transform: translateY(-10vh);
+				animation-name: down;
+				animation-duration: 3.5s;
+				animation-delay: 0.5s;
+				animation-timing-function: ease-out;
+				z-index: 999;
+			}
+
+			@keyframes down {
+				0% {
+					transform: translateY(-10vh);
+				}
+
+				100% {
+					transform: translateY(110vh);
+				}
+
+			}
+
+			.waves {
+				display: block;
+				position: absolute;
+				bottom: 120vh;
+				width: 100%;
+			}
+
+			#videobg {
+				width: 100%;
+				height: 100%;
+			}
+
+			.videos {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				position: absolute;
+			}
+
+			#centertext {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+				animation-name: out;
+				animation-duration: 1.5s;
+				animation-delay: 3s;
+				animation-fill-mode: forwards; 
+			}
+
+			@keyframes out {
+				100% {
+					opacity: 0;
+					display: none;
+				}
+			}
+			@keyframes in {
+				100% {
+					opacity: 1;
+				}
+			}
+			#p3relogo{
+				position: absolute;
+				right: 12%;
+				top: 50%;
+				opacity: 0;
+				transform: translateY(-50%);
+				animation-name: in;
+				animation-duration: 1.5s;
+				animation-delay: 5s;
+				animation-iteration-count: 1;
+				animation-fill-mode: forwards; 
+			}
+
+			#jumpButton {
+				position: fixed;
+				top: 30px;
+				right: 350px;
+				padding: 10px 20px;
+				font-size: 20px;
+				color: #000; 
+				background-color: transparent; 
+				border: none; 
+				cursor: pointer;
+				text-decoration: none;
+        		font-family: 'Alegreya', serif; /* Changed font */
+				z-index: 1000;
+				opacity: 0;
+				animation: fadeIn 1s ease-in-out 5s forwards;
+				letter-spacing: 1px; 
+			}
+
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			#overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.8);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				opacity: 0;
+				visibility: hidden;
+				transition: opacity 1s ease-in-out;
+				z-index: 1001;
+			}
+			#overlay.active {
+				opacity: 1;
+				visibility: visible;
+			}
+			#message {
+				background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+				padding: 30px;
+				border-radius: 15px;
+				text-align: left;
+				max-width: 80%;
+				font-family: 'Alegreya', serif;
+				border: 3px solid #ff6f61; /* Decorative border */
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Box shadow */
+				transform: scale(0.9);
+				transition: transform 0.5s ease-in-out;
+			}
+			#overlay.active #message {
+				transform: scale(1); /* Smooth zoom-in effect */
+			}
+			#message h2 {
+				font-size: 2em;
+				color: #333;
+				margin-bottom: 15px;
+			}
+			#message p {
+				font-size: 1.2em;
+				color: #555;
+				line-height: 1.6;
+			}
+
+			#musicButton {
+				position: fixed;
+				top: 30px;
+				right: 170px; /* Adjust position as needed */
+				padding: 10px 20px;
+				font-size: 20px;
+				color: #000;
+				background-color: transparent;
+				border: none;
+				cursor: pointer;
+				text-decoration: none;
+				font-family: 'Alegreya', serif;
+				z-index: 1000;
+				opacity: 0;
+				animation: fadeIn 1s ease-in-out 5s forwards;
+				letter-spacing: 1px;
+			}
+			#songDialog {
+				position: fixed;
+				top: 20px; /* Position at the top */
+				left: 50%;
+				transform: translateX(-50%); /* Center horizontally */
+				background-color: rgba(0, 0, 0, 0.8);
+				color: white;
+				padding: 10px 20px;
+				border-radius: 5px;
+				font-family: 'Alegreya', serif;
+				font-size: 18px;
+				text-align: center;
+				z-index: 1002; /* Ensure it's above other elements */
+				opacity: 0;
+				visibility: hidden;
+				transition: opacity 0.5s ease-in-out;
+			}
+			#songDialog.show {
+				opacity: 1;
+				visibility: visible;
+			}
+			#fullscreenButton {
+				position: fixed;
+				top: 30px;
+				right: 40px; /* Adjust position as needed */
+				padding: 10px 20px;
+				font-size: 20px;
+				color: #000;
+				background-color: transparent;
+				border: none;
+				cursor: pointer;
+				text-decoration: none;
+				font-family: 'Alegreya', serif;
+				z-index: 1000;
+				opacity: 0;
+				animation: fadeIn 1s ease-in-out 5s forwards;
+				letter-spacing: 1px;
+			}
+		</style>
+	</head>
+		<body>
+		<div class="startwaves" id="downout">
+			<div class="waves">
+				<img src="img/waves/wave-1.svg" />
+				<img src="img/waves/wave-2.svg" />
+				<img src="img/waves/wave-3.svg" />
+				<img src="img/waves/wave-4.svg" />
+				<img src="img/waves/wave-5.svg" id="shape" />
+			</div>
+		</div>
+		<div id="videobg">
+			<video id="video2" class="videos" muted="muted" loop>
+				<source src="assset/fv_movie2.mp4">
+			</video>
+			<video id="video1" class="videos" muted="muted">
+				<source src="assset/fv_movie1.mp4">
+			</video>
+			<div id="centertext">
+				<h1>Happy Birthday to KK! 🎂</h1>
+				<p>Wish you all the best.<br />Time never awaits.<br />Live each day to the fullest.</p>
+			</div>
+			<img id="p3relogo" src="img/P3RE.svg" alt="" />
+			<a id="jumpButton" href="https://www.example.com" target="_blank">Blessing</a>
+			<button id="musicButton">Switch Music</button>
+			<button id="fullscreenButton">Fullscreen</button>
+		</div>
+		<div id="songDialog">Now Playing: <span id="songName"></span></div>
+		<audio id="audioPlayer" src="assset/burn_my_bread.mp3"></audio>
+		<div id="overlay">
+		<div id="message">
+			<h2 align="center">Dear Piggy kk🐷</h2>
+			<p>生日快乐🎉，猪猪猪老婆。我大k猪猪王已经24岁了，变成老青年猪猪咯，嘻嘻，哎呀不皮了。</p>
+			<p>认识你都快一年了，从春天的尾巴初次相识，我们一起热情的了解彼此，一起逛校园，度过我的本科毕业典礼，非常谢谢猪猪能在我倍感孤独的时候一直陪着我。再度过了一个炎热的夏天，
+				我们都变成了小大人😳，还去南京玄武湖兜兜转转，又让关系变得更亲密了。猪猪也陪我度过了第一个生日，虽然我不怎么爱过生日，但有人为我庆祝我还是很开心的。后面认识三个月的时候偷偷跑来找猪猪，在广州猪猪家小区见面时我感到很恍惚，还以为在上海，然后再在猪猪的小学门口表白拍照，猪猪那个开心又没睡醒的表情真的搞得我像高调慈善哈哈哈😄。
+				肃杀的秋天也没有那么悲凉，只是一天又一天平淡的日子悄悄地流逝，我和猪猪分享中了那篇论文的高兴，我们肉体和精神的联系都在慢慢加深，但猪猪因为焦虑总是要偷偷跑过来，我觉得还是太频繁了，这学期也答应我了要好好商量，摸摸猪猪。
+				再到寒冷却也阳光明媚的冬天，印象最深的莫过于和猪猪一起回家啦，真的很开心，虽然我因为想多陪陪家人没和猪猪出去玩成，但猪猪也多尝了很多仙桃的美食，耶！后面猪猪家里发生了一些不好的事情，我很心疼猪猪，只能多关心猪猪，
+				猪猪也多把精力放在自己身上吧，老一辈的事应该他们去解决，我们还有学业和事业要去打拼，加油💪！
+			</p>
+			<p>
+				一眨眼就到了猪猪的生日咯，time never awaits，我希望我们每一天都能过得充实，并不说要多么高兴，多么辛苦，而是让自己感觉这一天没有白活，也算是聊以慰藉那些辛辛苦苦活在这世上的人。
+				未来的日子还很长，我还会和猪猪度过十个，二十个，几百个生日（兴许未来能延长寿命了，我要长生不老），似乎只有伴侣才是唯一能和你大部分人生轨迹重合的人，好好珍惜彼此，多了解体贴彼此，
+				有什么话就对他说吧，爱你爱你😘。
+			</p>
+			<p align="right">爱你的小R 2025/2/21</p>
+		</div>
+		</div>
+
+		<script>
+			var downwave = document.getElementById('downout');
+			var jumpButton = document.getElementById('jumpButton');
+			var overlay = document.getElementById('overlay');
+			const songs = [
+				{ name: "原谅自己", src: "assset/forgive_myself.mp3"},
+				{ name: "Burn My Bread(Dread)", src: "assset/burn_my_bread.mp3"},
+				{ name: "Color Your Night", src: "assset/color_your_night.mp3"},
+				{ name: "Full Moon, Full Life", src: "assset/fullmoon_fulllife.mp3"},
+				{ name: "キミの记忆", src: "assset/your_memory.mp3"},
+				{ name: "少女的祈祷（猪猪的祈祷）", src: "assset/pray_of_the_girl.mp3"},
+				{ name: "Love Story(有品位，宇宙诞生以来最伟大的歌手的最伟大的歌)", src: "assset/love_story.mp3"},
+				{ name: "暗涌", src: "assset/undercurrent.mp3"},
+				{ name: "我信", src: "assset/i_believe.mp3"},
+				{ name: "你", src: "assset/you.mp3"},
+				{ name: "如风", src: "assset/like_wind.mp3"}
+			];
+			
+			let currentSongIndex = 0; // Track the current song index
+			const audioPlayer = document.getElementById('audioPlayer'); // Audio element
+			const musicButton = document.getElementById('musicButton'); // Music button
+			const songDialog = document.getElementById('songDialog');
+			const songName = document.getElementById('songName');
+
+			audioPlayer.volume = 0.3;
+			function playNextSong() {
+				currentSongIndex = (currentSongIndex + 1) % songs.length; // Cycle through songs
+				audioPlayer.src = songs[currentSongIndex].src; // Update the audio source
+				audioPlayer.play(); // Play the song
+
+				// Update the song name in the dialog box
+				songName.textContent = songs[currentSongIndex].name;
+
+				// Show the dialog box
+				songDialog.classList.add('show');
+
+				// Hide the dialog box after 3 seconds
+				setTimeout(() => {songDialog.classList.remove('show');}, 4000);
+			}
+			musicButton.addEventListener('click', playNextSong);
+			audioPlayer.addEventListener('ended', playNextSong);
+
+			const fullscreenButton = document.getElementById('fullscreenButton'); // Fullscreen button
+			function toggleFullscreen() {
+				if (!document.fullscreenElement) {
+				// Enter fullscreen mode
+				document.documentElement.requestFullscreen();
+				} else {
+				// Exit fullscreen mode
+				document.exitFullscreen();
+				}
+			}
+			fullscreenButton.addEventListener('click', toggleFullscreen);
+
+			jumpButton.addEventListener('click', function(event) {
+				event.preventDefault(); // Prevent the default link behavior
+				overlay.classList.add('active'); // Show the overlay
+			});
+			// Optional: Close the overlay when clicking outside the message
+			overlay.addEventListener('click', function(event) {
+				if (event.target === overlay) {
+				overlay.classList.remove('active');
+				}
+			});
+
+			downwave.addEventListener('animationend', function() {
+				downwave.style.display = 'none'
+				var video1 = document.getElementById("video1");
+				var video2 = document.getElementById("video2");
+				video1.play();
+				video1.addEventListener('ended', function() {
+					video1.style.display = 'none'
+					video2.play();
+				});
+			});
+		</script>
+	</body>
+</html>
